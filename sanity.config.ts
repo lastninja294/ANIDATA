@@ -18,8 +18,8 @@ import { productionUrl } from '~/utils/productionUrl'
 
 export default defineConfig({
   basePath: '/studio',
-  name: 'project-name',
-  title: 'Project Name',
+  name: 'anidata',
+  title: 'ANIDATA DASHBOARD',
   projectId,
   dataset,
   //edit schemas in './src/schemas'
