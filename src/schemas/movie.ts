@@ -1,27 +1,15 @@
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'movie',
-  title: 'Movie',
+  name: 'animeMovie',
+  title: 'Anime Movie',
   type: 'document',
   fields: [
     defineField({
-      name: 'movieTitle',
-      title: 'Movie Title',
+      name: 'title',
+      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'movieDescription',
-      title: 'Movie Description',
-      type: 'text',
-      rows: 4,
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'number',
     }),
     defineField({
       name: 'slug',
@@ -34,28 +22,55 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
+      name: 'releaseDate',
+      title: 'Release Date',
+      type: 'date',
       options: {
-        hotspot: true,
+        dateFormat: 'YYYY-MM-DD',
       },
     }),
     defineField({
-      name: 'fandub',
-      title: 'Fandub',
+      name: 'genre',
+      title: 'Genre',
       type: 'string',
     }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    }),
+    defineField({
+      name: 'poster',
+      title: 'Poster Image',
+      type: 'image',
+    }),
+    defineField({
+      name: 'trailerUrl',
+      title: 'Trailer URL',
+      type: 'url',
+    }),
+    defineField({
+      name: 'movieUrl',
+      title: 'Movie URL',
+      type: 'url',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'duration',
+      title: 'Duration (minutes)',
+      type: 'number',
+    }),
+    defineField({
+      name: 'rating',
+      title: 'Rating',
+      type: 'number',
+      validation: (Rule) => Rule.min(0).max(10),
+    }),
+    defineField({
+      name: 'fandubs',
+      title: 'Fandubs',
+      type: 'reference',
+      to: [{ type: 'fandub' }],
+    }),
   ],
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const { author } = selection
-      return { ...selection, subtitle: author && `by ${author}` }
-    },
-  },
 })
