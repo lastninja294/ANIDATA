@@ -1,13 +1,21 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
 
-import Card from '~/components/Card'
-import Container from '~/components/Container'
-import Welcome from '~/components/Welcome'
+import { AspectRatio } from '~/components/ui/aspect-ratio'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '~/components/ui/card'
 import { readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
 import { getPosts, type Post, postsQuery } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
+import VideoCard from '~/components/Card/Card'
 
 export const getStaticProps: GetStaticProps<
   SharedPageProps & {
@@ -27,20 +35,29 @@ export const getStaticProps: GetStaticProps<
 }
 
 export default function IndexPage(
-  props: InferGetStaticPropsType<typeof getStaticProps>
+  props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
-
   const [posts] = useLiveQuery<Post[]>(props.posts, postsQuery)
-  
+
   return (
-    <Container>
-      <section>
-        {posts.length ? (
-          posts.map((post) => <Card key={post._id} post={post} />)
-        ) : (
-          <Welcome />
-        )}
-      </section>
-    </Container>
+    <>
+      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
+        <VideoCard
+          image="/media/live.webp"
+          title="qwertyuiopsdfghjkl;"
+          badge={'hello'}
+        />
+        <VideoCard
+          image="/media/live.webp"
+          title="qwertyuiopsdfghjkl;"
+          badge={'hello'}
+        />
+        <VideoCard
+          image="/media/live.webp"
+          title="qwertyuiopsdfghjkl;"
+          badge={'hello'}
+        />
+      </div>
+    </>
   )
 }
